@@ -1,0 +1,52 @@
+﻿@model muddleapp.Models.Nugget;
+@using muddleapp.Models;
+
+<div class="row rowCenterRecipe">
+
+    @using (Html.BeginForm("Index", "Home", FormMethod.Post))
+    {
+        <input hidden value="@Model.userDrink" name="userDrink" id="userDrink" />
+        <button class="btn btn-link" type="submit">Back to search</button>
+    }
+
+</div>
+
+<div class="row rowCenterRecipe">
+    <div class="col" style="">
+
+        @*<div class="row card drinkCard animated bounceInUp">
+            <img style="z-index: 1;" src="@Model.drink.strDrinkThumb" class="card-img-top" alt="@Model.drink.strDrink">
+            <div class="card-body recipeCard" style="text-align: center;">
+                <h1 class="card-title">@Model.drink.strDrink</h1>
+                <p class="card-text">@Model.drink.strCategory</p>
+                <p style="font-size: 15pt; width: 20vw; text-align: center; margin-left: auto; margin-right: auto;" class="card-text">@Model.drink.strInstructions</p>
+                <br />
+                <h3 class="card-text">Ingredients:</h3>
+                <br />
+                @for (int i = 0; i < Model.drink.strIngredients.Length; i++)
+                {
+                @if (Model.drink.strIngredients[i] != null)
+                    {
+                <h5><strong>@Model.drink.strMeasures[i]</strong> @Model.drink.strIngredients[i]</h5>
+                    }
+                }
+            </div>
+        </div>*@
+
+        <div class="card mb-3 drinkCard" style="margin-bottom: 10vh;">
+            <div class="row no-gutters">
+                <div class="col-md-4">
+                    <img src="@Model.drink.strDrinkThumb" class="card-img" alt="...">
+                </div>
+                <div class="col-md-8">
+                    <div class="card-body">
+                        <h3 class="card-title">@Model.drink.strDrink</h3>
+                        <p class="card-text">@Model.drink.strCategory</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</div>
+

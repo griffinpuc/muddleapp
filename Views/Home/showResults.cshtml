@@ -1,0 +1,38 @@
+﻿@model muddleapp.Models.Nugget;
+@using muddleapp.Models;
+
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+
+<style>
+
+    .drinkCard{
+        margin-bottom: 5vh;
+        box-shadow: 10px 10px #e2e2e2;
+        
+    }
+
+</style>
+
+<body>
+    
+    <div class="row" style="display: block;margin-left: auto;margin-right: auto;width: 30vw;margin-top: 5vh;text-align: center;">
+        <div class="col" style="">
+            @foreach (Drink drink in Model.drinks)
+            {
+                    <div class="row card drinkCard">
+                        <img src="@drink.strDrinkThumb" class="card-img-top" alt="@drink.strDrink">
+                        <div class="card-body">
+                            <h5 class="card-title">@drink.strDrink</h5>
+                            <p class="card-text">@drink.strInstructions</p>
+                            <a href="#" class="btn btn-primary">Not sure</a>
+                        </div>
+                    </div>
+            }
+        </div>
+    </div>
+
+
+
+</body>
+
+
