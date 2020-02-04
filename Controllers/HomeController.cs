@@ -19,14 +19,18 @@ namespace muddleapp.Controllers
         }
 
 
-        [HttpGet]
         public IActionResult Index()
         {
-            return View();
+            Drink[] topDrinks = _context.getTop();
+            return View(new Nugget() { drinks = topDrinks }) ;
         }
 
-        [HttpPost]
-        public IActionResult Index(String userDrink)
+        public IActionResult searchPath(string userDrink)
+        {
+            return Redirect("/Home/Search?userDrink=" + userDrink);
+        }
+
+        public ActionResult Search(string userDrink)
         {
 
             string results = new Api().searchDrinksAsync(userDrink).Result;
@@ -42,29 +46,18 @@ namespace muddleapp.Controllers
             return View(nug);
         }
 
-        public IActionResult showRecipe(string drinkId, string userDrink)
+        public IActionResult Recipe(string drinkId)
         {
+
+            _context.addHit(drinkId);
 
             string results = new Api().searchById(drinkId).Result;
 
             Drink drink = new Drink().deserializeDrinks(results)[0];
-            if (_context.containsDrinkHit(drinkId))
-            {
-                Hit hit = _context.getHit(drinkId);
-                hit.addHit();
-                _context.UpdateEntry(hit);
-            }
-            else
-            {
-                Hit hit = new Hit { idDrink = drink.idDrink, hits = 1 };
-                _context.AddEntry(hit);
-            }
             
-
             Nugget nug = new Nugget()
             {
-                drink = drink,
-                userDrink = userDrink
+                drink = drink
             };
 
             return View(nug);

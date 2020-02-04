@@ -19,14 +19,25 @@
         <div class="col" style="">
             @foreach (Drink drink in Model.drinks)
             {
-                    <div class="row card drinkCard">
-                        <img src="@drink.strDrinkThumb" class="card-img-top" alt="@drink.strDrink">
-                        <div class="card-body">
-                            <h5 class="card-title">@drink.strDrink</h5>
-                            <p class="card-text">@drink.strInstructions</p>
-                            <a href="#" class="btn btn-primary">Not sure</a>
-                        </div>
+                @*<div class="row card drinkCard">
+                    <img src="@drink.strDrinkThumb" class="card-img-top" alt="@drink.strDrink">
+                    <div class="card-body">
+                        <h5 class="card-title">@drink.strDrink</h5>
+                        <p class="card-text">@drink.strInstructions</p>
+                        <a href="#" class="btn btn-primary">Not sure</a>
                     </div>
+                </div>*@
+
+                <div class="card">
+                    <div class="card-header">
+                        @drink.strDrink
+                    </div>
+                    <div class="card-body">
+                        <h5 class="card-title">@drink.strCategory</h5>
+                        <p class="card-text">@drink.strInstructions</p>
+                        <a href="#" class="btn btn-primary">See recipe</a>
+                    </div>
+                </div>
             }
         </div>
     </div>

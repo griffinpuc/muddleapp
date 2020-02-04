@@ -63,5 +63,27 @@ namespace muddleapp.Models
         {
             return (from Hit in hitsTable where Hit.idDrink.Equals(idDrink) select Hit).ToList().ToArray()[0];
         }
+
+        public void addHit(string idDrink)
+        {
+            Hit hit = (from Hit in hitsTable where Hit.idDrink.Equals(idDrink) select Hit).FirstOrDefault();
+            if (hit == null){ Add(new Hit() { idDrink = idDrink, hits = 1 }); }
+            else { hit.addHit(); }
+            SaveChanges();
+        }
+
+        public Drink[] getTop()
+        {
+            Api api = new Api();
+            List<Drink> retval = new List<Drink>();
+
+            foreach(Hit hit in (from Hit in hitsTable select Hit).OrderBy(x => x.hits).Take(4))
+            {
+                string results = new Api().searchById(hit.idDrink).Result;
+                retval.Add(new Drink().deserializeDrinks(results)[0]);
+            }
+
+            return retval.ToArray();
+        }
     }
 }

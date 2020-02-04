@@ -1,0 +1,201 @@
+﻿@model muddleapp.Models.Nugget;
+@using muddleapp.Models;
+
+    <head>
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+        <script src="https://kit.fontawesome.com/2f4791119e.js" crossorigin="anonymous"></script>
+        <link href="https://fonts.googleapis.com/css?family=Varela&display=swap" rel="stylesheet">
+        <link href="~/css/animate.css" rel="stylesheet" />
+
+        <script src="https://code.jquery.com/jquery-3.4.1.js"
+                integrity="sha256-WpOohJOqMqqyKL9FccASB9O0KwACQJpFTUBLTYOVvVU="
+                crossorigin="anonymous"></script>
+
+        <meta content="width=device-width, initial-scale=1" name="viewport" />
+
+    </head>
+
+@* 
+    TODO:
+    Move to external stylesheet eventually
+    Add css classes/etc for mobile view
+        Drink search cards display too narrow and recipe cards are all fucked up
+*@
+<style>
+
+    html, body{
+        height: 100%;
+    }
+
+    body {
+        font-family: 'Varela', sans-serif;
+    }
+
+    .drinkCard {
+        box-shadow: 10px 10px lightgray;
+        background-color: ghostwhite;
+    }
+
+    .rowCenter {
+        display: block;
+        margin-left: auto;
+        margin-right: auto;
+        width: 30vw;
+        margin-top: 5vh;
+        text-align: center
+    }
+
+    .rowCenterRecipe{
+        display: block;
+        margin-left: auto;
+        margin-right: auto;
+        width: 50vw;
+        margin-top: 5vh;
+        text-align: center
+    }
+
+    .recipeCard{
+        z-index: 10;
+        margin-top: -60vh;
+        background-color: whitesmoke;
+        min-height: calc(100vh - 50px);
+    }
+
+    button {
+        margin-top: 2vh;
+    }
+
+    .card-title{
+        margin-top: 5vh;
+    }
+
+     /* unvisited link */
+    .git:link {
+      color: lightsalmon;
+    }
+
+    /* visited link */
+    .git:visited {
+      color: lightsalmon;
+    }
+
+    /* mouse over link */
+    .git:hover {
+      color: orangered;
+    }
+
+    /* selected link */
+    .git:active {
+      color: grey;
+    } 
+
+</style>
+
+
+<script>
+
+    function ShowRecipe(drinkId) {
+
+        $.ajax({
+            url: '@Url.Action("showRecipe", "Home")',
+            type: 'POST',
+            data: { drinkId },
+            success: function (data) {
+                $('#mainview').html(data);
+            }
+        });
+    }   
+
+</script>
+
+<body>
+
+    <div class="row rowCenter">
+        <p style="color: grey;">(alpha)</p>
+        <h1 style="font-size: 50pt;">muddle</h1>
+        <h5>Cocktail search tool</h5>
+        <a class="git" target="_blank" href="https://github.com/griffinpuc/muddleapp"><i class="fab fa-github-alt"></i> View the project on GitHub</a>
+    </div>
+
+    <div class="row rowCenter">
+
+        @using (Html.BeginForm("Index", "Home", FormMethod.Post))
+        {
+            <div class="row">
+                <div class="input-group mb-3">
+                    <input type="text" class="form-control" name="userdrink" id="userdrink" placeholder="Drink name or ingredient" />
+                    <div class="input-group-append">
+                        <button class="btn btn-warning" style="margin-top: 0" type="submit">Search</button>
+                    </div>
+                </div>
+            </div>
+        }
+
+    </div>
+
+    <div id="mainview">
+
+        @{
+            if (Model == null)
+            {
+
+                <div class="row rowCenter">
+                    <h5>Search a drink!</h5>
+                </div>
+
+                <div class="row rowCenter">
+                    <img class="animated bounce" style="position:fixed; bottom:0px;" src="https://encrypted-tbn0.gstatic.com/images?q=tbn%3AANd9GcRWJqGsrq3Mt5X-zP-YpTwbB8gNzXhZu-m5e2jnX6NrDcJCKSaK" />    
+                </div>
+
+            }
+
+            else if (Model.drinks == null)
+            {
+
+                <div class="row rowCenter">
+                    <h5>No results for '@Model.userDrink' found!</h5>
+                </div>
+
+                <div class="row rowCenter">
+                    <img class="animated bounce" style="position:fixed; bottom:0px;" src="https://encrypted-tbn0.gstatic.com/images?q=tbn%3AANd9GcRWJqGsrq3Mt5X-zP-YpTwbB8gNzXhZu-m5e2jnX6NrDcJCKSaK" />
+                </div>
+
+            }
+
+
+            else
+            {
+
+                <div class="row rowCenter">
+                    <h5>Found @Model.drinks.Length drinks for '@Model.userDrink'</h5>
+                </div>
+
+                <div class="row rowCenter">
+                    <div class="col" style="">
+                        @foreach (Drink drink in Model.drinks)
+                        {
+                        <div class="card mb-3 drinkCard" style="margin-bottom: 10vh;">
+                            <div class="row no-gutters">
+                                <div class="col-md-4">
+                                    <img src="@drink.strDrinkThumb" class="card-img" alt="...">
+                                </div>
+                                <div class="col-md-8">
+                                    <div class="card-body">
+                                        <h3 class="card-title">@drink.strDrink</h3>
+                                        <p class="card-text">@drink.strCategory</p>
+                                        <button style="margin-bottom: 8vh;" onclick="ShowRecipe(@drink.idDrink);" class="btn btn-primary">View Recipe</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <br />
+                        <br />
+                        }
+
+                    </div>
+                </div>
+            }
+        }
+    </div>
+
+</body>

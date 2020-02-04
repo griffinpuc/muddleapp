@@ -1,201 +1,197 @@
 ﻿@model muddleapp.Models.Nugget;
 @using muddleapp.Models;
 
-    <head>
-        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
-        <script src="https://kit.fontawesome.com/2f4791119e.js" crossorigin="anonymous"></script>
-        <link href="https://fonts.googleapis.com/css?family=Varela&display=swap" rel="stylesheet">
-        <link href="~/css/animate.css" rel="stylesheet" />
+<!DOCTYPE html>
+<html style="color: #192965;">
 
-        <script src="https://code.jquery.com/jquery-3.4.1.js"
-                integrity="sha256-WpOohJOqMqqyKL9FccASB9O0KwACQJpFTUBLTYOVvVU="
-                crossorigin="anonymous"></script>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
+    <title>muddle</title>
+    <meta name="description" content="Cocktail search webapp!">
+    <link rel="stylesheet" href="lib/assets/bootstrap/css/bootstrap.min.css">
+    <link rel="stylesheet" href="lib/assets/fonts/font-awesome.min.css">
+    <link rel="stylesheet" href="lib/assets/fonts/ionicons.min.css">
+    <link rel="stylesheet" href="lib/assets/css/Bootstrap-Cards-v2.css">
+    <link rel="stylesheet" href="lib/assets/css/Footer-Dark.css">
+    <link rel="stylesheet" href="lib/assets/css/Navigation-with-Button.css">
+    <link rel="stylesheet" href="lib/assets/css/Navigation-with-Search.css">
+    <link rel="stylesheet" href="lib/assets/css/Pretty-Search-Form.css">
+    <link rel="stylesheet" href="lib/assets/css/styles.css">
 
-        <meta content="width=device-width, initial-scale=1" name="viewport" />
-
-    </head>
-
-@* 
-    TODO:
-    Move to external stylesheet eventually
-    Add css classes/etc for mobile view
-        Drink search cards display too narrow and recipe cards are all fucked up
-*@
-<style>
-
-    html, body{
-        height: 100%;
-    }
-
-    body {
-        font-family: 'Varela', sans-serif;
-    }
-
-    .drinkCard {
-        box-shadow: 10px 10px lightgray;
-        background-color: ghostwhite;
-    }
-
-    .rowCenter {
-        display: block;
-        margin-left: auto;
-        margin-right: auto;
-        width: 30vw;
-        margin-top: 5vh;
-        text-align: center
-    }
-
-    .rowCenterRecipe{
-        display: block;
-        margin-left: auto;
-        margin-right: auto;
-        width: 50vw;
-        margin-top: 5vh;
-        text-align: center
-    }
-
-    .recipeCard{
-        z-index: 10;
-        margin-top: -60vh;
-        background-color: whitesmoke;
-        min-height: calc(100vh - 50px);
-    }
-
-    button {
-        margin-top: 2vh;
-    }
-
-    .card-title{
-        margin-top: 5vh;
-    }
-
-     /* unvisited link */
-    .git:link {
-      color: lightsalmon;
-    }
-
-    /* visited link */
-    .git:visited {
-      color: lightsalmon;
-    }
-
-    /* mouse over link */
-    .git:hover {
-      color: orangered;
-    }
-
-    /* selected link */
-    .git:active {
-      color: grey;
-    } 
-
-</style>
+    <link href="https://fonts.googleapis.com/css?family=Pacifico&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Nunito+Sans&display=swap" rel="stylesheet">
+</head>
 
 
-<script>
-
-    function ShowRecipe(drinkId) {
-
-        $.ajax({
-            url: '@Url.Action("showRecipe", "Home")',
-            type: 'POST',
-            data: { drinkId },
-            success: function (data) {
-                $('#mainview').html(data);
-            }
-        });
-    }   
-
-</script>
-
-<body>
-
-    <div class="row rowCenter">
-        <p style="color: grey;">(alpha)</p>
-        <h1 style="font-size: 50pt;">muddle</h1>
-        <h5>Cocktail search tool</h5>
-        <a class="git" target="_blank" href="https://github.com/griffinpuc/muddleapp"><i class="fab fa-github-alt"></i> View the project on GitHub</a>
-    </div>
-
-    <div class="row rowCenter">
-
-        @using (Html.BeginForm("Index", "Home", FormMethod.Post))
-        {
-            <div class="row">
-                <div class="input-group mb-3">
-                    <input type="text" class="form-control" name="userdrink" id="userdrink" placeholder="Drink name or ingredient" />
-                    <div class="input-group-append">
-                        <button class="btn btn-warning" style="margin-top: 0" type="submit">Search</button>
-                    </div>
-                </div>
+<body style="width: 100%;font-family: 'Nunito Sans', sans-serif;">
+    <header></header>
+    <nav class="navbar navbar-light navbar-expand-md navigation-clean-button" style="background-color: #192965;color: rgb(255,254,254);">
+        <div class="container">
+            @using (Html.BeginForm("Index", "Home", FormMethod.Post))
+            {
+                <button data-toggle="collapse" type="submit" class="btn btn-link navbar-brand" style="font-family: 'Pacifico', cursive; font-size: 25pt;">muddle</button>
+            }   
+            <div class="collapse navbar-collapse"
+                 id="navcol-1">
+                <ul class="nav navbar-nav mr-auto">
+                </ul><span class="navbar-text actions"> <a class="login" href="#" style="color: rgb(225,215,215);">Log In</a><a class="btn btn-light action-button" role="button" href="#" style="background-color: #bbcfff;color: #192965;">Sign Up</a></span>
             </div>
-        }
+        </div>
+    </nav>
+    <div>
+        <div class="container">
+            <div class="row">
+                <div class="col" style="margin-bottom: 80px;margin-top: 45px;">
+                    @using (Html.BeginForm("searchPath", "Home", FormMethod.Post))
+                    {
+                        <div class="input-group">
+                            <div class="input-group-prepend"><span class="input-group-text"><i class="fa fa-search"></i></span></div><input class="form-control" type="text" name="userdrink" id="userdrink" placeholder="I am looking for..">
+                            <div class="input-group-append"><button class="btn btn-light" type="submit" style="background-color: #192965;color: rgb(255,255,255);">Search </button></div>
+                        </div>
+                    }
 
-    </div>
-
-    <div id="mainview">
-
-        @{
-            if (Model == null)
-            {
-
-                <div class="row rowCenter">
-                    <h5>Search a drink!</h5>
                 </div>
+                <div class="bootstrap_cards2" style="border-radius: 50px;">
+                    <div class="container py-5">
+                        <!-- For Demo Purpose-->
+                        <header class="text-center mb-5">
+                            <h1 class="display-4 font-weight-bold" style="font-family: 'Pacifico', cursive;">Whats popular</h1>
+                        </header>
 
-                <div class="row rowCenter">
-                    <img class="animated bounce" style="position:fixed; bottom:0px;" src="https://encrypted-tbn0.gstatic.com/images?q=tbn%3AANd9GcRWJqGsrq3Mt5X-zP-YpTwbB8gNzXhZu-m5e2jnX6NrDcJCKSaK" />    
-                </div>
+                        <h2 class="font-weight-bold mb-2">Top Drinks</h2>
+                        <p class="font-italic text-muted mb-4">Most popular drinks to date</p>
+                        <div class="row pb-5 mb-4">
 
-            }
+                            <!-- Card-->
+                            @foreach (Drink drink in Model.drinks)
+                            {
+                            <div class="col-lg-3 col-md-6 mb-4 mb-lg-0">
+                                <!-- Card-->
+                                <div class="card rounded shadow-sm border-0">
+                                    <div class="card-body p-4" style="border-bottom-left-radius: 150px;">
+                                        <img src="@drink.strDrinkThumb" alt="" class="img-fluid d-block mx-auto mb-3">
+                                        <h5>@drink.strDrink</h5>
+                                        <p class="small text-muted font-italic">@drink.strCategory</p>
 
-            else if (Model.drinks == null)
-            {
-
-                <div class="row rowCenter">
-                    <h5>No results for '@Model.userDrink' found!</h5>
-                </div>
-
-                <div class="row rowCenter">
-                    <img class="animated bounce" style="position:fixed; bottom:0px;" src="https://encrypted-tbn0.gstatic.com/images?q=tbn%3AANd9GcRWJqGsrq3Mt5X-zP-YpTwbB8gNzXhZu-m5e2jnX6NrDcJCKSaK" />
-                </div>
-
-            }
-
-
-            else
-            {
-
-                <div class="row rowCenter">
-                    <h5>Found @Model.drinks.Length drinks for '@Model.userDrink'</h5>
-                </div>
-
-                <div class="row rowCenter">
-                    <div class="col" style="">
-                        @foreach (Drink drink in Model.drinks)
-                        {
-                        <div class="card mb-3 drinkCard" style="margin-bottom: 10vh;">
-                            <div class="row no-gutters">
-                                <div class="col-md-4">
-                                    <img src="@drink.strDrinkThumb" class="card-img" alt="...">
+                                        @using (Html.BeginForm("Recipe", "Home", FormMethod.Post))
+                                        {
+                                            <input type="hidden" value="@drink.idDrink" name="drinkID" id="drinkID" />
+                                            <button type="submit" class="btn btn-dark">&#128195 Recipe</button>
+                                        }
+                                    </div>
                                 </div>
-                                <div class="col-md-8">
-                                    <div class="card-body">
-                                        <h3 class="card-title">@drink.strDrink</h3>
-                                        <p class="card-text">@drink.strCategory</p>
-                                        <button style="margin-bottom: 8vh;" onclick="ShowRecipe(@drink.idDrink);" class="btn btn-primary">View Recipe</button>
+
+                                <div class="card rounded shadow-sm border-0" style="margin-top: 10px; height: 55px;">
+                                    <div class="card-body p-4" style="text-align: center;">
+                                        <ul class="list-inline small" style="font-size: 15pt;">
+                                            <li class="list-inline-item m-0"><i class="fa fa-star text-success"></i></li>
+                                            <li class="list-inline-item m-0"><i class="fa fa-star text-success"></i></li>
+                                            <li class="list-inline-item m-0"><i class="fa fa-star text-success"></i></li>
+                                            <li class="list-inline-item m-0"><i class="fa fa-star text-success"></i></li>
+                                            <li class="list-inline-item m-0"><i class="fa fa-star-o text-success"></i></li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+
+                            }
+
+
+                        </div>
+
+
+                        <!-- Second Row [Team]-->
+                        <!-- First Row [Statistics]-->
+                        <h2 class="font-weight-bold mb-2">Top Categories</h2>
+                        <p class="font-italic text-muted mb-4">Most popular drink types</p>
+
+                        <div class="row pb-5">
+                            <div class="col-lg-3 col-md-6 mb-4 mb-lg-0">
+                                <!-- Card-->
+                                <div class="card rounded shadow-sm border-0">
+                                    <div class="card-body p-5">
+                                        <i class="fa fa-bar-chart fa-2x mb-3 text-primary"></i>
+                                        <h5>Products Sales</h5>
+                                        <p class="small text-muted font-italic">Lorem ipsum dolor sit amet, consectetur adipisicing elit.</p>
+
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="col-lg-3 col-md-6 mb-4 mb-lg-0">
+                                <!-- Card -->
+                                <div class="card rounded shadow-sm border-0">
+                                    <div class="card-body p-5">
+                                        <i class="fa fa-tasks fa-2x mb-3 text-success"></i>
+                                        <h5>Completed Tasks</h5>
+                                        <p class="small text-muted font-italic">Lorem ipsum dolor sit amet, consectetur adipisicing elit.</p>
+
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="col-lg-3 col-md-6 mb-4 mb-lg-0">
+                                <!-- Card -->
+                                <div class="card rounded shadow-sm border-0">
+                                    <div class="card-body p-5">
+                                        <i class="fa fa-user-circle-o fa-2x mb-3 text-info"></i>
+                                        <h5>New Users</h5>
+                                        <p class="small text-muted font-italic">Lorem ipsum dolor sit amet, consectetur adipisicing elit.</p>
+
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Card -->
+                            <div class="col-lg-3 col-md-6 mb-4 mb-lg-0">
+                                <div class="card rounded shadow-sm border-0">
+                                    <div class="card-body p-5">
+                                        <i class="fa fa-shopping-bag fa-2x mb-3 text-warning"></i>
+                                        <h5>New Products</h5>
+                                        <p class="small text-muted font-italic">Lorem ipsum dolor sit amet, consectetur adipisicing elit.</p>
+
                                     </div>
                                 </div>
                             </div>
                         </div>
-                        <br />
-                        <br />
-                        }
-
                     </div>
                 </div>
-            }
-        }
+            </div>
+        </div>
     </div>
-
+    <div class="footer-dark" style="margin-top: 71px;background-color: #192965;">
+        <footer>
+            <div class="container">
+                <div class="row">
+                    <div class="col-sm-6 col-md-3 item">
+                        <h3>Services</h3>
+                        <ul>
+                            <li><a href="#">Web design</a></li>
+                            <li><a href="#">Development</a></li>
+                            <li><a href="#">Hosting</a></li>
+                        </ul>
+                    </div>
+                    <div class="col-sm-6 col-md-3 item">
+                        <h3>About</h3>
+                        <ul>
+                            <li><a href="#">Company</a></li>
+                            <li><a href="#">Team</a></li>
+                            <li><a href="#">Careers</a></li>
+                        </ul>
+                    </div>
+                    <div class="col-md-6 item text">
+                        <h3>Company Name</h3>
+                        <p>Praesent sed lobortis mi. Suspendisse vel placerat ligula. Vivamus ac sem lacus. Ut vehicula rhoncus elementum. Etiam quis tristique lectus. Aliquam in arcu eget velit pulvinar dictum vel in justo.</p>
+                    </div>
+                    <div class="col item social"><a href="#"><i class="icon ion-social-facebook"></i></a><a href="#"><i class="icon ion-social-twitter"></i></a><a href="#"><i class="icon ion-social-snapchat"></i></a><a href="#"><i class="icon ion-social-instagram"></i></a></div>
+                </div>
+                <p class="copyright">Company Name © 2017</p>
+            </div>
+        </footer>
+    </div>
+    <script src="assets/js/jquery.min.js"></script>
+    <script src="assets/bootstrap/js/bootstrap.min.js"></script>
 </body>
+
+</html>
