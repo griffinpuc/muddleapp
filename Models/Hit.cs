@@ -10,6 +10,7 @@ namespace muddleapp.Models
         public int ID { get; set; }
         public string idDrink { get; set; }
         public int hits { get; set; }
+
         //public DateTime date { get; set; }
 
         public void addHit()

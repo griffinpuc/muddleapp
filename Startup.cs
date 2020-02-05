@@ -33,7 +33,7 @@ namespace muddleapp
                 options.MinimumSameSitePolicy = SameSiteMode.None;
             });
 
-            services.AddDbContext<databaseContext>(options => options.UseSqlServer(Configuration.GetConnectionString("dbConnection")));
+            services.AddDbContext<databaseContext>(options => options.UseSqlServer(Configuration.GetConnectionString("prodConnection")));
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
         }
 

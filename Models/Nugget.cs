@@ -10,5 +10,6 @@ namespace muddleapp.Models
         public Drink[] drinks { get; set; }
         public Drink drink { get; set; }
         public string userDrink { get; set; }
+        public int hits { get; set; }
     }
 }

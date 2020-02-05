@@ -21,33 +21,44 @@
 
     <link href="https://fonts.googleapis.com/css?family=Pacifico&display=swap" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css?family=Nunito+Sans&display=swap" rel="stylesheet">
+    <link href="~/css/animate.css" rel="stylesheet" />
+    <script src="https://kit.fontawesome.com/0a8d489327.js" crossorigin="anonymous"></script>
+
 </head>
 
+<style>
+    .grow {
+    }
+    .grow:hover {
+        transform: scale(2);    
+    }
+</style>
 
-<body style="width: 100%;font-family: 'Nunito Sans', sans-serif;">
+<body style="width: 100%;">
     <header></header>
-    <nav class="navbar navbar-light navbar-expand-md navigation-clean-button" style="background-color: #192965;color: rgb(255,254,254);">
+    <nav class="navbar navbar-light navbar-expand-md navigation-clean-button" style="background-color: #fff;color: #1E90FF;">
         <div class="container">
             @using (Html.BeginForm("Index", "Home", FormMethod.Post))
             {
-                <button data-toggle="collapse" type="submit" class="btn btn-link navbar-brand" style="font-family: 'Pacifico', cursive; font-size: 25pt;">muddle</button>
+                <button data-toggle="collapse" type="submit" class="btn btn-link navbar-brand" style="font-family: 'Pacifico', cursive; font-size: 35pt;">muddle</button>
             }   
             <div class="collapse navbar-collapse"
                  id="navcol-1">
                 <ul class="nav navbar-nav mr-auto">
-                </ul><span class="navbar-text actions"> <a class="login" href="#" style="color: rgb(225,215,215);">Log In</a><a class="btn btn-light action-button" role="button" href="#" style="background-color: #bbcfff;color: #192965;">Sign Up</a></span>
+                </ul>
+                <a target="_blank" href="https://github.com/griffinpuc/muddleapp" style="color: #1E90FF; font-size: 15pt;"><i class="fab fa-github"></i> GitHub</a>
             </div>
         </div>
     </nav>
     <div>
         <div class="container">
             <div class="row">
-                <div class="col" style="margin-bottom: 80px;margin-top: 45px;">
+                <div class="col animated fadeInDown" style="margin-bottom: 80px;margin-top: 45px;">
                     @using (Html.BeginForm("searchPath", "Home", FormMethod.Post))
                     {
                         <div class="input-group">
                             <div class="input-group-prepend"><span class="input-group-text"><i class="fa fa-search"></i></span></div><input class="form-control" type="text" name="userdrink" id="userdrink" placeholder="I am looking for..">
-                            <div class="input-group-append"><button class="btn btn-light" type="submit" style="background-color: #192965;color: rgb(255,255,255);">Search </button></div>
+                            <div class="input-group-append"><button class="btn btn-light" type="submit" style="background-color: #1E90FF;color: rgb(255,255,255);">Search </button></div>
                         </div>
                     }
 
@@ -56,7 +67,7 @@
                     <div class="container py-5">
                         <!-- For Demo Purpose-->
                         <header class="text-center mb-5">
-                            <h1 class="display-4 font-weight-bold" style="font-family: 'Pacifico', cursive;">Whats popular</h1>
+                            <h1 class="display-4 font-weight-bold">Whats popular</h1>
                         </header>
 
                         <h2 class="font-weight-bold mb-2">Top Drinks</h2>
@@ -66,31 +77,23 @@
                             <!-- Card-->
                             @foreach (Drink drink in Model.drinks)
                             {
-                            <div class="col-lg-3 col-md-6 mb-4 mb-lg-0">
+                            <div class="col-lg-3 col-md-6 mb-4 mb-lg-0 animated fadeInUp grow">
                                 <!-- Card-->
                                 <div class="card rounded shadow-sm border-0">
-                                    <div class="card-body p-4" style="border-bottom-left-radius: 150px;">
-                                        <img src="@drink.strDrinkThumb" alt="" class="img-fluid d-block mx-auto mb-3">
+                                    <div class="card-body p-4" style="box-shadow: 8px 5px #1E90FF; border-radius: 15px;">
+                                        <img style="clip-path: circle(100px at center);" src="@drink.strDrinkThumb" alt="" class="img-fluid d-block mx-auto mb-3">
                                         <h5>@drink.strDrink</h5>
                                         <p class="small text-muted font-italic">@drink.strCategory</p>
 
-                                        @using (Html.BeginForm("Recipe", "Home", FormMethod.Post))
-                                        {
-                                            <input type="hidden" value="@drink.idDrink" name="drinkID" id="drinkID" />
-                                            <button type="submit" class="btn btn-dark">&#128195 Recipe</button>
-                                        }
-                                    </div>
-                                </div>
+                                        <div style="text-align: center; margin-top: 40px;">
+                                            @using (Html.BeginForm("Recipe", "Home", FormMethod.Post))
+                                            {
+                                                <input type="hidden" value="@drink.idDrink" name="drinkID" id="drinkID" />
+                                                <button type="submit" class="btn btn-dark">&#128195 Recipe</button>
+                                            }
+                                            <p style="font-size: 15pt; margin-top: 20px;">&#127867 @drink.hits Hits</p>
+                                        </div>
 
-                                <div class="card rounded shadow-sm border-0" style="margin-top: 10px; height: 55px;">
-                                    <div class="card-body p-4" style="text-align: center;">
-                                        <ul class="list-inline small" style="font-size: 15pt;">
-                                            <li class="list-inline-item m-0"><i class="fa fa-star text-success"></i></li>
-                                            <li class="list-inline-item m-0"><i class="fa fa-star text-success"></i></li>
-                                            <li class="list-inline-item m-0"><i class="fa fa-star text-success"></i></li>
-                                            <li class="list-inline-item m-0"><i class="fa fa-star text-success"></i></li>
-                                            <li class="list-inline-item m-0"><i class="fa fa-star-o text-success"></i></li>
-                                        </ul>
                                     </div>
                                 </div>
                             </div>
@@ -99,94 +102,18 @@
 
 
                         </div>
-
-
-                        <!-- Second Row [Team]-->
-                        <!-- First Row [Statistics]-->
-                        <h2 class="font-weight-bold mb-2">Top Categories</h2>
-                        <p class="font-italic text-muted mb-4">Most popular drink types</p>
-
-                        <div class="row pb-5">
-                            <div class="col-lg-3 col-md-6 mb-4 mb-lg-0">
-                                <!-- Card-->
-                                <div class="card rounded shadow-sm border-0">
-                                    <div class="card-body p-5">
-                                        <i class="fa fa-bar-chart fa-2x mb-3 text-primary"></i>
-                                        <h5>Products Sales</h5>
-                                        <p class="small text-muted font-italic">Lorem ipsum dolor sit amet, consectetur adipisicing elit.</p>
-
-                                    </div>
-                                </div>
-                            </div>
-
-                            <div class="col-lg-3 col-md-6 mb-4 mb-lg-0">
-                                <!-- Card -->
-                                <div class="card rounded shadow-sm border-0">
-                                    <div class="card-body p-5">
-                                        <i class="fa fa-tasks fa-2x mb-3 text-success"></i>
-                                        <h5>Completed Tasks</h5>
-                                        <p class="small text-muted font-italic">Lorem ipsum dolor sit amet, consectetur adipisicing elit.</p>
-
-                                    </div>
-                                </div>
-                            </div>
-
-                            <div class="col-lg-3 col-md-6 mb-4 mb-lg-0">
-                                <!-- Card -->
-                                <div class="card rounded shadow-sm border-0">
-                                    <div class="card-body p-5">
-                                        <i class="fa fa-user-circle-o fa-2x mb-3 text-info"></i>
-                                        <h5>New Users</h5>
-                                        <p class="small text-muted font-italic">Lorem ipsum dolor sit amet, consectetur adipisicing elit.</p>
-
-                                    </div>
-                                </div>
-                            </div>
-
-                            <!-- Card -->
-                            <div class="col-lg-3 col-md-6 mb-4 mb-lg-0">
-                                <div class="card rounded shadow-sm border-0">
-                                    <div class="card-body p-5">
-                                        <i class="fa fa-shopping-bag fa-2x mb-3 text-warning"></i>
-                                        <h5>New Products</h5>
-                                        <p class="small text-muted font-italic">Lorem ipsum dolor sit amet, consectetur adipisicing elit.</p>
-
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
                     </div>
                 </div>
             </div>
         </div>
     </div>
-    <div class="footer-dark" style="margin-top: 71px;background-color: #192965;">
+    <div class="footer-dark" style="margin-top: 71px;background-color: #1E90FF;">
         <footer>
             <div class="container">
-                <div class="row">
-                    <div class="col-sm-6 col-md-3 item">
-                        <h3>Services</h3>
-                        <ul>
-                            <li><a href="#">Web design</a></li>
-                            <li><a href="#">Development</a></li>
-                            <li><a href="#">Hosting</a></li>
-                        </ul>
-                    </div>
-                    <div class="col-sm-6 col-md-3 item">
-                        <h3>About</h3>
-                        <ul>
-                            <li><a href="#">Company</a></li>
-                            <li><a href="#">Team</a></li>
-                            <li><a href="#">Careers</a></li>
-                        </ul>
-                    </div>
-                    <div class="col-md-6 item text">
-                        <h3>Company Name</h3>
-                        <p>Praesent sed lobortis mi. Suspendisse vel placerat ligula. Vivamus ac sem lacus. Ut vehicula rhoncus elementum. Etiam quis tristique lectus. Aliquam in arcu eget velit pulvinar dictum vel in justo.</p>
-                    </div>
-                    <div class="col item social"><a href="#"><i class="icon ion-social-facebook"></i></a><a href="#"><i class="icon ion-social-twitter"></i></a><a href="#"><i class="icon ion-social-snapchat"></i></a><a href="#"><i class="icon ion-social-instagram"></i></a></div>
+                <div class="col" style="text-align: center;font-family: 'Pacifico', cursive; font-size: 35pt;">
+                    muddle app
                 </div>
-                <p class="copyright">Company Name © 2017</p>
+                <p class="copyright">Griffin Puc © 2020</p>
             </div>
         </footer>
     </div>

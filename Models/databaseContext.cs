@@ -77,13 +77,16 @@ namespace muddleapp.Models
             Api api = new Api();
             List<Drink> retval = new List<Drink>();
 
-            foreach(Hit hit in (from Hit in hitsTable select Hit).OrderBy(x => x.hits).Take(4))
+            foreach(Hit hit in (from Hit in hitsTable select Hit).OrderByDescending(x => x.hits).Take(4))
             {
                 string results = new Api().searchById(hit.idDrink).Result;
-                retval.Add(new Drink().deserializeDrinks(results)[0]);
+                Drink drink = new Drink().deserializeDrinks(results)[0];
+                drink.setHits(hit.hits);
+                retval.Add(drink);
             }
 
             return retval.ToArray();
         }
+
     }
 }

@@ -39,6 +39,9 @@ namespace muddleapp.Models
         public string[] strIngredients { get; set; }
         public string[] strMeasures { get; set; }
 
+        [JsonIgnore]
+        public int hits { get; set; }
+
         public Drink[] deserializeDrinks(String json)
         {
             DrinkApi drinkArray = JsonConvert.DeserializeObject<DrinkApi>(json);
@@ -79,6 +82,11 @@ namespace muddleapp.Models
             }
   
             return drinkArray.drinks;
+        }
+
+        public void setHits(int hits)
+        {
+            this.hits = hits;
         }
 
     }
